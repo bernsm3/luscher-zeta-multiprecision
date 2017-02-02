@@ -11,7 +11,6 @@ Numerical advice is taken from [3] Appendix B, and unless otherwise stated all r
 - Boost [multiprecision](http://www.boost.org/doc/libs/1_63_0/libs/multiprecision/doc/html/index.html)
 - Boost [math/special_functions](http://www.boost.org/doc/libs/1_63_0/libs/math/doc/html/special.html)
 - Boost [math/tools/precision](http://www.boost.org/doc/libs/1_63_0/boost/math/tools/precision.hpp)
-- Boost [geometry](http://www.boost.org/doc/libs/1_63_0/libs/geometry/doc/html/index.html)
 - [GMP](https://gmplib.org/)
 - [MPFR](http://www.mpfr.org/)
 
