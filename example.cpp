@@ -4,7 +4,7 @@
 
 #include "myfloat.h"
 // --- pick one of these ---
-// #include "zeta00.h"
+// #include "zeta00.h" // lm=00 case. Much faster - use whenever possible.
 #include "zeta.h"
 // -------------------------
 

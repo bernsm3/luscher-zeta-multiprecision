@@ -61,21 +61,6 @@ FloatType inline inner_summand(int l, int m, const Point<Float>& n, const Float&
 
 //SUMMATION
 
-//Only the first octant in 3-space is summed over. All the summands are rotationally 
-// symmetric (depend only on magnitude of n), so this extends the sum to all
-// 3-space by symmetry.
-FloatType inline extend(int n_1, int n_2, int n_3, const Float& val) {
-	int zeros = 0;
-	if (!n_1) zeros++;
-    if (!n_2) zeros++;
-    if (!n_3) zeros++;
-	
-	if (zeros==0) return 8*val;
-	if (zeros==1) return 4*val;
-	if (zeros==2) return 2*val;
-	return val;
-}
-
 //This is where the extended precision of myfloat is needed to evaluate a sum of
 // many small contributions (values of small_kernel, big_kernel, or inner_summand). 
 //More discussion by romberg_integrate().
@@ -91,16 +76,15 @@ const Float& low, const Float& high, int l, int m, const Float& param) {
     myfloat low_ceil = ceil(low*low);
     int lbound = low_ceil.convert_to<int>();
     //This is the slowest part of the calculation, esp. evaluated many times
-    // in romberg_integrate(), and using extend() to start these loops at 0 
-    // instead of -l gives an 8x speedup.
+    // in romberg_integrate()
     int magnitude,i,j,k;
-    for (i=0; i<=ubound; i++) {
-    for (j=0; j<=ubound; j++) {
-    for (k=0; k<=ubound; k++) {
+    for (i=-ubound; i<=ubound; i++) {
+    for (j=-ubound; j<=ubound; j++) {
+    for (k=-ubound; k<=ubound; k++) {
         magnitude = i*i + j*j + k*k;
     	if (magnitude <= ubound && magnitude >= lbound) {
             Point<Float> p = Point<Float>( Float(i), Float(j), Float(k) );
-    	    result += extend(i,j,k, func(l,m,p,param) );
+    	    result += func(l,m,p,param);
         }
     }}}
     return result;
